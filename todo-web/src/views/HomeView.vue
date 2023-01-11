@@ -13,33 +13,15 @@ export default {
   methods: {
     ...mapActions(useTodoStore, ["fetchTodo"]),
     filter(event) {
-      console.log(event.target.value);
       if (event.target.value === "all") {
         this.newTodos = this.todos;
       } else if (event.target.value === "completed") {
         this.newTodos = this.todos.filter((el) => el.isComplete === true);
       } else if (event.target.value === "incomplete") {
         this.newTodos = this.todos.filter((el) => el.isComplete === false);
-      } else if (event.target.value === "asc") {
-        this.newTodos = this.todos.sort((a, b) =>
-          a.title.localeCompare(b.title)
-        );
-      } else if (event.target.value === "desc") {
-        this.newTodos = this.newTodos = this.todos.sort((a, b) =>
-          b.title.localeCompare(a.title)
-        );
-      } else if (event.target.value === "newest") {
-        this.newTodos = this.newTodos = this.todos.sort(
-          (a, b) => b.createdAt - a.createdAt
-        );
-      } else if (event.target.value === "oldest") {
-        this.newTodos = this.newTodos = this.todos.sort(
-          (a, b) => a.createdAt - b.createdAt
-        );
       }
     },
     sort(event) {
-      console.log(event.target.value);
       if (event.target.value === "all") {
         this.newTodos = this.todos;
       } else if (event.target.value === "asc") {
