@@ -25,7 +25,6 @@ export const useTodoStore = defineStore("todoStore", {
   }),
   actions: {
     completeTodo(id, status) {
-      console.log(id, status);
       this.todos = this.todos.map((el) => {
         if (el.id === id) {
           if (!status) return { ...el, isComplete: true };

@@ -38,6 +38,28 @@ export default {
         );
       }
     },
+    sort(event) {
+      console.log(event.target.value);
+      if (event.target.value === "all") {
+        this.newTodos = this.todos;
+      } else if (event.target.value === "asc") {
+        this.newTodos = this.todos.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
+      } else if (event.target.value === "desc") {
+        this.newTodos = this.newTodos = this.todos.sort((a, b) =>
+          b.title.localeCompare(a.title)
+        );
+      } else if (event.target.value === "newest") {
+        this.newTodos = this.newTodos = this.todos.sort(
+          (a, b) => b.createdAt - a.createdAt
+        );
+      } else if (event.target.value === "oldest") {
+        this.newTodos = this.newTodos = this.todos.sort(
+          (a, b) => a.createdAt - b.createdAt
+        );
+      }
+    },
     search() {
       if (this.searchValue === "") {
         this.newTodos = this.todos;
@@ -95,15 +117,28 @@ export default {
         <RouterLink to="/add" class="link">Add Todo</RouterLink>
       </div>
 
-      <select name="" id="" class="select" @change="filter($event)">
-        <option value="all" selected>All</option>
-        <option value="completed">Completed</option>
-        <option value="incomplete">Incomplete</option>
-        <option value="asc">A-Z</option>
-        <option value="desc">Z-A</option>
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-      </select>
+      <div
+        style="display: flex; align-items: center; justify-content: flex-start"
+      >
+        <div style="margin-top: 1rem">
+          <p style="font-size: 12px; margin-bottom: 0.5rem">Filter</p>
+          <select name="" id="" class="select" @change="filter($event)">
+            <option value="all" selected>All</option>
+            <option value="completed">Completed</option>
+            <option value="incomplete">Incomplete</option>
+          </select>
+        </div>
+        <div style="margin-top: 1rem; margin-left: 1rem">
+          <p style="font-size: 12px; margin-bottom: 0.5rem">Sort</p>
+          <select name="" id="" class="select" @change="sort($event)">
+            <option value="all" selected>All</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
+      </div>
 
       <CardComponent
         v-for="(todo, index) in newTodos"
@@ -171,7 +206,6 @@ main {
 }
 
 .select {
-  margin-top: 2rem;
   padding: 0 1rem;
   border-radius: 5px;
   border: 2px solid #406882;
